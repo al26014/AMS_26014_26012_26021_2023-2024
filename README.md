@@ -1,4 +1,4 @@
-## Trabalho Prático Análise e Modelação de Software
+## Trabalho Prático - Análise e Modelação de Software
 Projeto para a unidade curricular de Análise e Modelação de Software
 
 # Realizado por:
