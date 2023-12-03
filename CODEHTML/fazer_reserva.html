@@ -1,0 +1,94 @@
+ <!-- fazer_reserva.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer Reserva</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c7c6c1;
+        }
+
+        header {
+            background-color: #269136;
+            color: green;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #fcfcfc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 20px 30px;
+            font-size: 16px;
+            background-color: #269136;
+            color: white;
+            text-decoration: none;
+            border-radius: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Fazer Reserva</h1>
+    </header>
+
+    <main>
+        <form>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="check-in">Data de Entrada:</label>
+            <input type="date" id="check-in" name="check-in" required>
+
+            <label for="check-out">Data de Saída:</label>
+            <input type="date" id="check-out" name="check-out" required>
+
+            <button type="button" onclick="submeterForm()">Confirmar Reserva</button>
+        </form>
+
+        <script>
+            function submeterForm() {
+                window.location.href = "analisar_reserva.html";
+            }
+        </script>
+    </main>
+
+</body>
+</html>
