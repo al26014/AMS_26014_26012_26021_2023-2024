@@ -1,4 +1,3 @@
- <!-- fazer_reserva.html -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -58,6 +57,10 @@
             border-radius: 100px;
             cursor: pointer;
         }
+
+        .button-return  {
+        }
+
     </style>
 </head>
 <body>
@@ -67,7 +70,7 @@
     </header>
 
     <main>
-        <form>
+        <form id="reservaForm">
             <label for="name">Nome:</label>
             <input type="text" id="name" name="name" required>
 
@@ -85,9 +88,29 @@
 
         <script>
             function submeterForm() {
-                window.location.href = "analisar_reservas.html";
+                var nome = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var checkIn = document.getElementById('check-in').value;
+                var checkOut = document.getElementById('check-out').value;
+
+                var novaReserva = {
+                    nome: nome,
+                    email: email,
+                    entrada: checkIn,
+                    saida: checkOut
+                };
+
+                var reservas = JSON.parse(localStorage.getItem('reservas')) || [];
+
+                reservas.push(novaReserva);
+
+                localStorage.setItem('reservas', JSON.stringify(reservas));
+
+                window.location.href = "analisar_reserva.html";
             }
         </script>
+
+        <br> </br><br> </br><a href="index.html" class="button-return">Voltar ao Menu</a>
     </main>
 
 </body>
