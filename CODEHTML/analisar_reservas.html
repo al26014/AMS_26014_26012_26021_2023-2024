@@ -1,4 +1,3 @@
-<!-- analisar_reservas.html -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -50,6 +49,18 @@
             background-color: #269136;
             color: white;
         }
+
+        .remove-button {
+            background-color: #ff4646;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button-return  {   
+        }
     </style>
 </head>
 <body>
@@ -66,30 +77,67 @@
                     <th>E-mail</th>
                     <th>Data de Entrada</th>
                     <th>Data de Saída</th>
+                    <th>Remover</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>André Reis</td>
-                    <td>a26012@alunos.ipca.pt</td>
-                    <td>05-12-2023</td>
-                    <td>12-12-2023</td>
-                </tr>
-                <tr>
-                    <td>Diogo Gonçalves</td>
-                    <td>a26021@alunos.ipca.pt</td>
-                    <td>12-12-2023</td>
-                    <td>19-12-2023</td>
-                </tr>
-                <tr>
-                    <td>Bruno Miranda</td>
-                    <td>a26014@alunos.ipca.pt</td>
-                    <td>19-12-2023</td>
-                    <td>26-12-2023</td>
-                </tr>
+            <tbody id="tabelaReservas">
             </tbody>
+            
         </table>
+        
+        <br> </br><br> </br><a href="index.html" class="button-return">Voltar ao Menu</a> 
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            carregarReservas();
+        });
+
+        function carregarReservas() {
+            var tabelaReservas = document.getElementById("tabelaReservas");
+            tabelaReservas.innerHTML = "";
+
+            var reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+            for (var i = 0; i < reservas.length; i++) {
+                var reserva = reservas[i];
+
+                var linha = tabelaReservas.insertRow();
+                var colunaNome = linha.insertCell(0);
+                var colunaEmail = linha.insertCell(1);
+                var colunaEntrada = linha.insertCell(2);
+                var colunaSaida = linha.insertCell(3);
+                var colunaRemover = linha.insertCell(4);
+
+                colunaNome.innerHTML = reserva.nome;
+                colunaEmail.innerHTML = reserva.email;
+                colunaEntrada.innerHTML = reserva.entrada;
+                colunaSaida.innerHTML = reserva.saida;
+
+                var botaoRemover = document.createElement("button");
+                botaoRemover.innerText = "Remover";
+                botaoRemover.className = "remove-button";
+                botaoRemover.addEventListener("click", criarHandlerRemover(i));
+                colunaRemover.appendChild(botaoRemover);
+            }
+        }
+
+        function criarHandlerRemover(index) {
+            return function() {
+                removerReserva(index);
+                carregarReservas();
+            };
+        }
+
+        function removerReserva(index) {
+            var reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+            if (index >= 0 && index < reservas.length) {
+                reservas.splice(index, 1);
+                localStorage.setItem("reservas", JSON.stringify(reservas));
+            }
+        }
+    </script>
 
 </body>
 </html>
