@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Reservas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c7c6c1;
+        }
+
+        header {
+            background-color: #269136;
+            color: green;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #fcfcfc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 20px 30px;
+            font-size: 16px;
+            background-color: #269136;
+            color: white;
+            text-decoration: none;
+            border-radius: 100px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #269136;
+            color: white;
+        }
+
+        .button-return  {   
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Consultar Reservas</h1>
+    </header>
+
+    <main>
+        <form>
+            <label for="nomePesquisa">Pesquisar por Nome:</label>
+            <input type="text" id="nomePesquisa" name="nomePesquisa" required>
+
+            <button type="button" onclick="pesquisarReserva()">Consultar Reserva</button>
+        </form>
+
+        <div id="detalhesReserva"></div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Não exibe reservas no carregamento inicial
+            });
+
+            function pesquisarReserva() {
+                var nomePesquisa = document.getElementById('nomePesquisa').value;
+
+                // Obter as reservas do localStorage
+                var reservas = obterReservasDoArquivo();
+
+                // Encontrar a reserva pelo nome
+                var reservaEncontrada = reservas.find(function(reserva) {
+                    return reserva.nome.toLowerCase() === nomePesquisa.toLowerCase();
+                });
+
+                // Exibir os detalhes da reserva ou mensagem de não encontrada
+                var detalhesReservaElemento = document.getElementById('detalhesReserva');
+                if (reservaEncontrada) {
+                    detalhesReservaElemento.innerHTML = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Data de Entrada</th>
+                                    <th>Data de Saída</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${reservaEncontrada.nome}</td>
+                                    <td>${reservaEncontrada.email}</td>
+                                    <td>${reservaEncontrada.entrada}</td>
+                                    <td>${reservaEncontrada.saida}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                } else {
+                    detalhesReservaElemento.innerHTML = "<p>Nenhuma reserva encontrada.</p>";
+                }
+            }
+
+            function obterReservasDoArquivo() {
+                // Código para ler as reservas do localStorage
+                return JSON.parse(localStorage.getItem('reservas')) || [];
+            }
+        </script>
+
+        <br> </br><br> </br><a href="index.html" class="button-return">Voltar ao Menu</a>
+    </main>
+
+</body>
+</html>
